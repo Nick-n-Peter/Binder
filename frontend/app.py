@@ -12,9 +12,11 @@ set_appearance_mode("system")
 set_default_color_theme("green")
 
 class Window(CTk):
-    def __init__(self, width, height) -> None:
+    def __init__(self, width, height, keys, binds) -> None:
         super().__init__()
 
+        self.f_keys = keys
+        self.keybinds = binds
 
         # shirina
         self.width = width
@@ -30,28 +32,27 @@ class Window(CTk):
         self.grid_columnconfigure((1,2,3,4,5), weight=1)
         self.grid_rowconfigure((1,2,3,4,5), weight=1)
         
-        #self.create_dropdowns()
+        self.dropdowns = []
+        
+        self.create_dropdowns()
 
         self.main_menu()
 
     def create_dropdowns(self):
-        for i in range(len(f_keys)):
-            droplabel = CTkLabel(self, text=f_keys.keys())
-            
-            dropdown = CTkComboBox(self, values=list(self.f_keys.json()))
-            if i < 5:
-                droplabel.grid(row=i+1, column=0, padx=10, pady=10)
-                dropdown.grid(row=i+1, column=1, padx=10, pady=10)
-            elif i >= 5:
-                droplabel.grid(row=i-4, column=3, padx=10, pady=10)
-                dropdown.grid(row=i-4, column=4, padx=10, pady=10)
-            self.dropdowns.append(dropdown)
-
-    def main_menu(self):
-        self.text=CTkLabel(master=self, text="Keybinds", font=CTkFont(size=20))
-        self.text.grid(row=0, column=0, padx=20, pady=20)
+        keyamount = len(self.f_keys)
+        bindamount = len(self.keybinds)
+        for i in range(keyamount):
+            droplabel = CTkLabel(self, text=list(self.f_keys.keys())[i])
+            for y in range(bindamount):
+                dropdown = CTkComboBox(self, values=list(self.keybinds.keys()))
+                if i < keyamount/2:
+                    droplabel.grid(row=i+1, column=1, padx=10, pady=10)
+                    dropdown.grid(row=i+1, column=2, padx=10, pady=10)
+                elif i >= keyamount/2:
+                    droplabel.grid(row=i+1-int(keyamount/2), column=4, padx=10, pady=10)
+                    dropdown.grid(row=i+1-int(keyamount/2), column=5, padx=10, pady=10)
+                self.dropdowns.append(dropdown)
 
 if __name__ == "__main__":   
-    root = CTk()
     app = Window(1280, 720)
     app.mainloop()
