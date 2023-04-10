@@ -5,7 +5,7 @@ import asyncio
 # Appending root folder
 import sys
 sys.path.append('./')
-from backend.main import leegoo
+
 
 with open("resources/f_keys.json", "r", encoding="utf-8") as f:
     f_keys = json.load(f)
@@ -15,7 +15,7 @@ with open("resources/keybinds.json", "r", encoding="utf-8") as f:
 # Main prefs
 set_appearance_mode("system")
 set_default_color_theme("green")
-
+print("launched")
 class Window(CTk):
     def __init__(self, width, height, keys, binds) -> None:
         super().__init__()
@@ -38,7 +38,7 @@ class Window(CTk):
         # self.grid_rowconfigure((1,2,3,4,5), weight=1)
         
         self.dropdowns = []
-        
+        print("inited")
         self.main_menu()
 
     def create_dropdowns(self):
@@ -53,16 +53,20 @@ class Window(CTk):
                 droplabel.grid(row=i+3-int(keyamount/2), column=4, padx=10, pady=10)
                 dropdown.grid(row=i+3-int(keyamount/2), column=5, padx=10, pady=10)
             self.dropdowns.append(dropdown)
+        print('dropdowns creates')
 
     def main_menu(self):
         self.text = CTkLabel(self, text="Keybinds", font=CTkFont(family="Arial", size=60))
         self.text.grid(row=0, column=0, padx=20, pady=20)
         self.hren = CTkFrame(self, fg_color="transparent")
         self.hren.grid(row=0, column=3, rowspan=5)
-        
-        self.bind_everything = CTkButton(self, text="Bind!", width=200, height=50, font=CTkFont(size=30), command=lambda: asyncio.create_task(leegoo(self.dropdowns)))
+        print('partially inited main menu')
+        from backend.main import leegoo
+        self.bind_everything = CTkButton(self, text="Bind!", width=200, height=50, font=CTkFont(size=30), command=lambda: leegoo(self.dropdowns))
         self.bind_everything.grid(row=9, column=3, padx=20, pady=20)
+        print('main menu loaded')
 
 if __name__ == "__main__":   
     app = Window(1280, 720, f_keys, keybinds)
     app.mainloop()
+    print("looped")
