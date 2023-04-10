@@ -1,4 +1,10 @@
 from customtkinter import *
+import json
+import sys
+sys.path.append("./")
+with open("resources/f_keys.json", "r", encoding="utf-8") as f:
+    f_keys=json.load(f)
+       
 # Main prefs
 set_appearance_mode("system")
 set_default_color_theme("green")
@@ -26,7 +32,7 @@ class Window(CTk):
             for i in range(10):
                 droplabel = CTkLabel(self, text=f"F {i+1}: ")
                 
-                dropdown = CTkComboBox(self, values=list(self.()))
+                dropdown = CTkComboBox(self, values=list(self.f_keys.json()))
                 if i < 5:
                     droplabel.grid(row=i+1, column=0, padx=10, pady=10)
                     dropdown.grid(row=i+1, column=1, padx=10, pady=10)
