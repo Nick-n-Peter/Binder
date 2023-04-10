@@ -30,7 +30,9 @@ class Window(CTk):
         self.grid_columnconfigure((1,2,3,4,5), weight=1)
         self.grid_rowconfigure((1,2,3,4,5), weight=1)
         
-        self.create_dropdowns()
+        #self.create_dropdowns()
+
+        self.main_menu()
 
     def create_dropdowns(self):
         for i in range(len(f_keys)):
@@ -44,6 +46,10 @@ class Window(CTk):
                 droplabel.grid(row=i-4, column=3, padx=10, pady=10)
                 dropdown.grid(row=i-4, column=4, padx=10, pady=10)
             self.dropdowns.append(dropdown)
+
+    def main_menu(self):
+        self.text=CTkLabel(master=self, text="Keybinds", font=CTkFont(size=20))
+        self.text.grid(row=0, column=0, padx=20, pady=20)
 
 if __name__ == "__main__":   
     root = CTk()
