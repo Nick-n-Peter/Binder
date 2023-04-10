@@ -45,8 +45,8 @@ class Window(CTk):
     def create_dropdowns(self):
         keyamount = len(self.f_keys)
         for i in range(keyamount):
-            droplabel = CTkLabel(self, text=list(self.f_keys.keys())[i], font=CTkFont(family="Nunito", size=20))
-            dropdown = CTkComboBox(self, values=list(self.keybinds.keys()), font=CTkFont(family="Nunito", size=20), width=200)
+            droplabel = CTkLabel(self, text=list(self.f_keys.keys())[i], font=CTkFont(family="Arial", size=20))
+            dropdown = CTkComboBox(self, values=list(self.keybinds.keys()), font=CTkFont(family="Arial", size=20), width=200)
             if i < keyamount/2:
                 droplabel.grid(row=i+3, column=1, padx=10, pady=10)
                 dropdown.grid(row=i+3, column=2, padx=10, pady=10)
@@ -56,14 +56,14 @@ class Window(CTk):
             self.dropdowns.append(dropdown)
 
     def main_menu(self):
-        self.text = CTkLabel(self, text="Keybinds", font=CTkFont(family="Nunito", size=60))
+        self.text = CTkLabel(self, text="Keybinds", font=CTkFont(family="Arial", size=60))
         self.text.grid(row=0, column=0, padx=20, pady=20)
         self.hren = CTkFrame(self, fg_color="transparent")
         self.hren.grid(row=0, column=3, rowspan=5)
         
-        from backend.main import leegoo
-        self.bind_everything = CTkButton(self, text="Bind!", command=leegoo)
-        self.bind_everything.grid(row=0, column=1, padx=20, pady=20)
+        #from backend.main import leegoo
+        self.bind_everything = CTkButton(self, text="Bind!", width=200, height=50, font=CTkFont(size=30))
+        self.bind_everything.grid(row=9, column=3, padx=20, pady=20)
 
 if __name__ == "__main__":   
     app = Window(1280, 720, f_keys, keybinds)
