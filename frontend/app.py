@@ -1,7 +1,11 @@
 from customtkinter import *
 import json
+
+# Appending root folder
 import sys
-sys.path.append("./")
+sys.path.append('./')
+
+
 with open("resources/f_keys.json", "r", encoding="utf-8") as f:
     f_keys = json.load(f)
 with open("resources/keybinds.json", "r", encoding="utf-8") as f:
@@ -52,10 +56,14 @@ class Window(CTk):
             self.dropdowns.append(dropdown)
 
     def main_menu(self):
-        self.text=CTkLabel(master=self, text="Keybinds", font=CTkFont(family="Nunito", size=60))
+        self.text = CTkLabel(self, text="Keybinds", font=CTkFont(family="Nunito", size=60))
         self.text.grid(row=0, column=0, padx=20, pady=20)
-        self.hren=CTkFrame(self, fg_color="transparent")
+        self.hren = CTkFrame(self, fg_color="transparent")
         self.hren.grid(row=0, column=3, rowspan=5)
+        
+        from backend.main import leegoo
+        self.bind_everything = CTkButton(self, text="Bind!", command=leegoo)
+        self.bind_everything.grid(row=0, column=1, padx=20, pady=20)
 
 if __name__ == "__main__":   
     app = Window(1280, 720, f_keys, keybinds)

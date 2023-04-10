@@ -1,36 +1,17 @@
-import pyautogui
-from typing import Optional
-from logging import basicConfig as logger_cfg
-from logging import INFO as BASIC
-from logging import info as logwriter
-import keyboard
+import json
 
-class ScreenRes():
-    def __init__(self) -> None:
-        pass
-    
-    def get(self) -> tuple:
-        width, height = pyautogui.size()
-        return width, height
-    
-class BindKey():
-    def __init__(self, key: str, func: str, logger: Optional[bool]=False, logdir: Optional[str]='./Keybind.log') -> None:
-        if key == None or key == "":
-            raise ValueError("You have to specify a key!")
-        if func == None or function == "":
-            raise ValueError("You have to specify function for a key!")
-        if logger:
-            logger_cfg(filename=logdir, level=BASIC)
-            print(f"Created logger at {logdir} for BindKey")
-            logwriter(f"[BindKey] Requested logger at {logdir}")
-        self.key = key
-        self.func = func
-    
-    async def bind(self):
-        while True:
-            try:
-                pressed = keyboard.is_pressed(self.key)
-            except:
-                pass
-        if pressed:
-            pass
+# Appending root folder
+import sys
+sys.path.append('./')
+
+from frontend.app import Window
+from resources.classes import BindKey
+
+with open('resources/keybinds.json') as f:
+    dicty = json.load(f)
+
+def leegoo():
+    for i, (dropdown) in enumerate(Window.dropdowns):
+        command = dropdown.get()
+        keybind = BindKey(f'F{i+1}', command, True, dictionary=dicty)
+        keybind.bind()
