@@ -60,10 +60,17 @@ class Window(CTk):
         self.text.grid(row=0, column=0, padx=20, pady=20)
         self.hren = CTkFrame(self, fg_color="transparent")
         self.hren.grid(row=0, column=3, rowspan=5)
+        self.create_dropdowns()
         print('partially inited main menu')
-        from backend.main import leegoo
-        self.bind_everything = CTkButton(self, text="Bind!", width=200, height=50, font=CTkFont(size=30), command=lambda: leegoo(self.dropdowns))
-        self.bind_everything.grid(row=9, column=3, padx=20, pady=20)
+        async def bind_keys():
+            from backend.main import leegoo
+            await leegoo(self.dropdowns)
+
+        async def run():
+            await asyncio.gather(bind_keys())
+
+        self.bind_everything = CTkButton(self, text="Bind!", command=lambda: asyncio.run(run()))
+        self.bind_everything.grid(row=0, column=1, padx=20, pady=20)
         print('main menu loaded')
 
 if __name__ == "__main__":   

@@ -3,7 +3,7 @@ from typing import Optional
 from logging import basicConfig as logger_cfg
 from logging import INFO as BASIC
 from logging import info as logwriter
-import keyboard
+import keyboard as kbd
 from asyncio import sleep as asleep
 from pynput import keyboard
 
@@ -35,7 +35,7 @@ class BindKey():
     
     async def bind(self):
         while True:
-            if keyboard.is_pressed(self.key):
+            if kbd.is_pressed(self.key):
                 logwriter(f'[BindKey] Registered {self.key}. Executing {self.func}.')
                 command = self.dict.get(self.func)
                 if command is not None:
