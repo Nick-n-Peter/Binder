@@ -1,10 +1,11 @@
 from customtkinter import *
 import json
+import asyncio
 
 # Appending root folder
 import sys
 sys.path.append('./')
-
+from backend.main import leegoo
 
 with open("resources/f_keys.json", "r", encoding="utf-8") as f:
     f_keys = json.load(f)
@@ -38,8 +39,6 @@ class Window(CTk):
         
         self.dropdowns = []
         
-        self.create_dropdowns()
-
         self.main_menu()
 
     def create_dropdowns(self):
@@ -61,8 +60,7 @@ class Window(CTk):
         self.hren = CTkFrame(self, fg_color="transparent")
         self.hren.grid(row=0, column=3, rowspan=5)
         
-        #from backend.main import leegoo
-        self.bind_everything = CTkButton(self, text="Bind!", width=200, height=50, font=CTkFont(size=30))
+        self.bind_everything = CTkButton(self, text="Bind!", width=200, height=50, font=CTkFont(size=30), command=lambda: asyncio.create_task(leegoo(self.dropdowns)))
         self.bind_everything.grid(row=9, column=3, padx=20, pady=20)
 
 if __name__ == "__main__":   
